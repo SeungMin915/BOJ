@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+int main() {
+	int n, top = 0, num = 0, j = 0;
+	int arr[100000], stack[100001];
+	char res[200000] = { 0 };
+
+	scanf("%d", &n);
+
+	for (int i = 0; i < n; i++)
+	{
+		scanf("%d", &arr[i]);
+	}
+	
+	for (int i = 0; i < n; i++)
+	{
+		while (1)
+		{
+			if (num == arr[i])
+			{
+				top--;
+				res[j] = '-';
+				j++;
+				break;
+			}
+
+			else if (num > arr[i])
+			{
+				if (stack[top] == arr[i])
+				{
+					top--;
+					res[j] = '-';
+					j++;
+					break;
+				}
+				else
+				{
+					printf("NO");
+					return 0;
+				}
+			}
+
+			else
+			{
+				top++;
+				num++;
+				stack[top] = num;
+				res[j] = '+';
+				j++;
+			}
+		}
+	}
+
+	for (int i = 0; i < j; i++)
+	{
+		printf("%c\n", res[i]);
+	}
+
+	return 0;
+}
