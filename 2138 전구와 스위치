@@ -1,0 +1,64 @@
+import sys
+input = sys.stdin.readline
+
+
+def one_touch(present):
+    present2 = present[:]
+    cnt = 1
+
+    present2[0] = 1 - present2[0]
+    present2[1] = 1 - present2[1]
+
+    for i in range(1, N):
+        if present2[i-1] == correct[i-1]:
+            continue
+
+        if present2[i-1] != correct[i-1]:
+            if i == N-1:
+                present2[i-1] = 1 - present2[i-1]
+                present2[i] = 1 - present2[i]
+                cnt += 1
+                break
+
+            present2[i-1] = 1 - present2[i-1]
+            present2[i] = 1 - present2[i]
+            present2[i+1] = 1 - present2[i+1]
+            cnt += 1
+
+    return cnt if present2 == correct else sys.maxsize
+
+
+def one_touch_not(present):
+    present2 = present[:]
+    cnt = 0
+
+    for i in range(1, N):
+        if present2[i-1] == correct[i-1]:
+            continue
+
+        if present2[i-1] != correct[i-1]:
+            if i == N-1:
+                present2[i-1] = 1 - present2[i-1]
+                present2[i] = 1 - present2[i]
+                cnt += 1
+                break
+
+            present2[i-1] = 1 - present2[i-1]
+            present2[i] = 1 - present2[i]
+            present2[i+1] = 1 - present2[i+1]
+            cnt += 1
+
+    return cnt if present2 == correct else sys.maxsize
+
+
+N = int(input())
+present = list(map(int, input().strip()))
+correct = list(map(int, input().strip()))
+
+one = one_touch(present)
+two = one_touch_not(present)
+
+if one == sys.maxsize and two == sys.maxsize:
+    print(-1)
+else:
+    print(min(one, two))
